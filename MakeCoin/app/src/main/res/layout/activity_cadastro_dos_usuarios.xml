@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.CadastroUsuarios.CadastroUsuarios"
+    android:background="@drawable/ic_launcher_background">
+
+
+    <ImageView
+        android:layout_width="151dp"
+        android:layout_height="119dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/user"
+        app:tint="@android:color/white"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cadastra-se"
+        android:textSize="35dp"
+        android:textColor="@color/white"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-medium"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="* Digite seu nome completo"
+        android:textColor="@color/white"
+        android:textSize="22dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"/>
+
+    <EditText
+        android:id="@+id/edit_nome_cadastro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/redondado"
+        android:drawableStart="@drawable/profile"
+        android:hint="Nome completo"
+        android:padding="15dp"
+        android:drawablePadding="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="* Digite seu e-mail"
+        android:textColor="@color/white"
+        android:textSize="22dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"/>
+    <EditText
+        android:id="@+id/edit_email_cadastro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/redondado"
+        android:drawableStart="@drawable/email"
+        android:hint="E-mail"
+        android:padding="15dp"
+        android:drawablePadding="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="* Digite sua senha"
+        android:textColor="@color/white"
+        android:textSize="22dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"/>
+    <EditText
+        android:id="@+id/edit_senha_cadastro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/redondado"
+        android:drawableStart="@drawable/padlock"
+        android:hint="Senha"
+        android:padding="15dp"
+        android:drawablePadding="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="* Confirmar senha"
+        android:textColor="@color/white"
+        android:textSize="22dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp"/>
+    <EditText
+        android:id="@+id/edit_confirmar_senha_cadastro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/redondado"
+        android:drawableStart="@drawable/checkmark"
+        android:hint="Confirmar senha"
+        android:padding="15dp"
+        android:drawablePadding="10dp"/>
+
+    <Button
+        android:id="@+id/btn_cadastrar_cadastro"
+        android:layout_width="match_parent"
+        android:layout_height="71dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/botoes"
+        android:text="Cadastrar"
+        android:textSize="30dp" />
+
+</LinearLayout>
+</androidx.core.widget.NestedScrollView>

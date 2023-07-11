@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.CadastroUsuarios.CadastroUsuarios"
+    android:background="@drawable/ic_launcher_background">
+
+
+    <ImageView
+        android:layout_width="151dp"
+        android:layout_height="119dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        android:src="@drawable/casa"
+        app:tint="@android:color/white"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/titulo_login"
+        android:textSize="35dp"
+        android:textColor="@color/white"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="sans-serif-medium"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/subtitulo_login"
+        android:textColor="@color/white"
+        android:layout_marginLeft="20dp"
+        android:textSize="16dp"
+        android:fontFamily="sans-serif-light"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/email_login"
+        android:textColor="@color/white"
+        android:textSize="22dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="35dp"/>
+
+    <EditText
+        android:id="@+id/edit_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/redondado"
+        android:drawableStart="@drawable/email"
+        android:hint="@string/email_form"
+        android:padding="15dp"
+        android:drawablePadding="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/senha_login"
+        android:textColor="@color/white"
+        android:textSize="22dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"/>
+    <EditText
+        android:id="@+id/edit_senha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/redondado"
+        android:drawableStart="@drawable/padlock"
+        android:hint="@string/senha_form"
+        android:padding="15dp"
+        android:drawablePadding="10dp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/recupera_senha_login"
+        android:textColor="@color/blue"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:textSize="16dp"/>
+
+    <Button
+        android:id="@+id/btn_entrar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/botoes"
+        android:text="@string/btn_entrar"
+        android:textSize="30dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/linha_dupla"
+        android:text="@string/nao_possui_login"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/nao_possui_login"
+        android:textColor="#FFFFFF"
+        android:layout_gravity="center"
+        android:textSize="18dp"
+        />
+
+    <Button
+        android:id="@+id/btn_cadastrar"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="40dp"
+        android:background="@drawable/linha_botao"
+        android:text="Cadastra-se"
+        android:textSize="25dp"
+        android:onClick="btnAcessar"/>
+
+</LinearLayout>
+</androidx.core.widget.NestedScrollView>

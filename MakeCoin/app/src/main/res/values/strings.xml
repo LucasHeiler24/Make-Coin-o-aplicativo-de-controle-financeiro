@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Make Coin</string>
+    <string name="titulo_login">Entre</string>
+    <string name="subtitulo_login">Com o e-mail e senha para entrar</string>
+    <string name="email_login">Digite seu e-mail</string>
+    <string name="senha_login">Digite sua senha</string>
+    <string name="recupera_senha_login">Esqueci minha senha?</string>
+    <string name="nao_possui_login">Não possui uma conta?</string>
+    <string name="email_form">E-mail</string>
+    <string name="senha_form">Senha</string>
+    <string name="btn_entrar">Entrar</string>
+</resources>

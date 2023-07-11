@@ -1,0 +1,21 @@
+<!-- navegacao.xml -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/navigation_item1"
+        android:title=""
+        android:icon="@drawable/navegarcasa" />
+
+    <item
+        android:id="@+id/navigation_item2"
+        android:title=""
+        android:icon="@drawable/mais"
+       />
+
+    <item
+        android:id="@+id/navigation_item3"
+        android:title=""
+        android:icon="@drawable/estatistico" />
+
+</menu>

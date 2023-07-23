@@ -94,7 +94,8 @@
         android:drawableStart="@drawable/padlock"
         android:hint="Senha"
         android:padding="15dp"
-        android:drawablePadding="10dp"/>
+        android:drawablePadding="10dp"
+        android:inputType="textPassword"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -114,7 +115,8 @@
         android:drawableStart="@drawable/checkmark"
         android:hint="Confirmar senha"
         android:padding="15dp"
-        android:drawablePadding="10dp"/>
+        android:drawablePadding="10dp"
+        android:inputType="textPassword"/>
 
     <Button
         android:id="@+id/btn_cadastrar_cadastro"

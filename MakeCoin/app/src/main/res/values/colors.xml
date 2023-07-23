@@ -3,4 +3,16 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#3E8CE7</color>
+    <color name="azulForte">#34088A</color>
+    <color name="azulExtraForte">#05286D</color>
+    <color name="rosaNavegation">#FFBFD7</color>
+    <color name="grey">#D8D8D8</color>
+    <color name="green">#2DD051</color>
+    <color name="red">#D02D2D</color>
+    <color name="cinzetado">#A9A9A9</color>
+    <color name="colorButtonToday">#D9D9D9</color>
+    <color name="colorButtonYesterday">#D9D9D9</color>
+    <color name="colorButtonOther">#D9D9D9</color>
+    <color name="colorButtonAVista">#D9D9D9</color> <!-- Cor desejada para o botão "À vista" -->
+    <color name="colorButtonPadrao">#3E8CE7</color> <!-- Cor padrão do botão -->
 </resources>

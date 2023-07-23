@@ -10,6 +10,7 @@ import android.widget.Toast
 import br.com.makecoin.R
 import br.com.makecoin.view.LoginUsuarios.CadastroDosUsuarios
 import br.com.makecoin.view.TelaPrincipal.TelaPrincipal
+import br.com.makecoin.view.TelaPrincipalGraficos.TelaPrincipalGraficos
 import com.google.firebase.auth.FirebaseAuth
 
 class CadastroUsuarios : AppCompatActivity() {
@@ -21,6 +22,7 @@ class CadastroUsuarios : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_cadastro_usuarios)
+
 
         // Configurar o listener do botão
         val btn_cadastrar: Button = findViewById(R.id.btn_cadastrar)

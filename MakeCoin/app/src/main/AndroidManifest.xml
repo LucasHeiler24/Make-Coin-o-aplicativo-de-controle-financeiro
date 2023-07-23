@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -15,9 +16,20 @@
         android:theme="@style/Theme.MakeCoin"
         tools:targetApi="31">
         <activity
-            android:name=".view.TelaPrincipal.TelaPrincipal"
+            android:name=".view.TelaPrincipalGraficos.TelaPrincipalGraficos"
             android:exported="false" />
-        <!-- Atividade da primeira tela -->
+        <activity
+            android:name=".view.TelaPrincipalCategorias.TelaPrincipalCategorias"
+            android:exported="false" />
+        <activity
+            android:name=".view.telaConfiguracoesEditar.activity_tela_configuracoes_editar"
+            android:exported="false" />
+        <activity
+            android:name=".view.TelaConfiguracoes.TelaConfiguracoes"
+            android:exported="false" />
+        <activity
+            android:name=".view.TelaPrincipal.TelaPrincipal"
+            android:exported="false" /> <!-- Atividade da primeira tela -->
         <activity
             android:name=".view.LoginUsuarios.CadastroDosUsuarios"
             android:exported="false" /> <!-- Atividade da segunda tela de cadastro -->

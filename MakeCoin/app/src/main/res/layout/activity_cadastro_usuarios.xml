@@ -80,22 +80,16 @@
         android:drawableStart="@drawable/padlock"
         android:hint="@string/senha_form"
         android:padding="15dp"
-        android:drawablePadding="10dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/recupera_senha_login"
-        android:textColor="@color/blue"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:textSize="16dp"/>
+        android:drawablePadding="10dp"
+        android:inputType="textPassword"/>
+
 
     <Button
         android:id="@+id/btn_entrar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="40dp"
         android:background="@drawable/botoes"
         android:text="@string/btn_entrar"

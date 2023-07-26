@@ -1,0 +1,395 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintHorizontal_bias="0">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:context=".view.CadastroUsuarios.CadastroUsuarios"
+            android:background="@color/white">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:background="@drawable/retangulo_redondo" />
+
+                <ImageView
+                    android:id="@+id/Voltar_tela_inicial"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginEnd="370dp"
+                    app:tint="#ffff"
+                    android:src="@drawable/setaesquerda"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:text="Registrar categoria despesa"
+                    android:textAlignment="center"
+                    android:layout_marginStart="15dp" />
+                <View
+                    android:id="@+id/retangulo_despesa"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="130dp"
+                    android:layout_marginStart="90dp"
+                    android:layout_marginEnd="90dp"
+                    android:background="@drawable/retangulo_tela_principal"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Total gasto:"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="140dp"
+                    android:textAlignment="center"
+                    android:textSize="30dp"/>
+                <EditText
+                    android:id="@+id/valor_da_despesa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="45dp"
+                    android:hint="R$ 0,00"
+                    android:textAlignment="center"
+                    android:inputType="numberDecimal"
+                    style="@style/EditTextNoBackground"
+                    android:textAppearance="@style/HintStyle"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="* Nome da despesa:"
+                    android:textSize="25dp"
+                    android:layout_marginTop="290dp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="15dp"/>
+                <EditText
+                    android:id="@+id/Nome_da_despesa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="340dp"
+                    style="@style/EditTextNoBackgroundRounded"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:hint="Ex: Despesas com remédios"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Descrição:"
+                    android:textSize="25dp"
+                    android:layout_marginTop="410dp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="15dp"/>
+                <EditText
+                    android:id="@+id/Descricao_da_despesa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="460dp"
+                    style="@style/EditTextNoBackgroundRounded"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:hint="Ex: Hoje gastei com os remédios do mês: Dipirona, Paracetanol e Doril"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="* Data de efetuação:"
+                    android:textSize="25dp"
+                    android:layout_marginTop="550dp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="15dp"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:layout_marginTop="650dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/calendario"
+                    android:layout_marginTop="600dp"
+                    android:layout_marginStart="15dp"/>
+                <Button
+                    android:id="@+id/registrar_hoje_data_efetuacao"
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:text="Hoje"
+                    android:textSize="20dp"
+                    android:layout_marginTop="595dp"
+                    android:layout_marginStart="70dp"
+                    android:textColor="@color/black"
+                    android:backgroundTint="@color/button_background_selector"
+                    android:onClick="registrarHojeDataEfetuacaoButton"/>
+                <Button
+                    android:id="@+id/abrir_calendario_data_efetuacao"
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:text="Outros"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="595dp"
+                    android:layout_marginStart="200dp"
+                    android:backgroundTint="@color/button_background_selector"/>
+                <TextView
+                    android:id="@+id/data_efetuacao_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:layout_marginTop="600dp"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="70dp"/>
+                <Button
+                    android:id="@+id/limpar_data_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Limpar data"
+                    android:textSize="16dp"
+                    android:textColor="@color/black"
+                    android:backgroundTint="@color/button_background_selector"
+                    android:layout_marginTop="596dp"
+                    android:layout_marginStart="200dp"
+                    android:visibility="gone"
+                    android:onClick="limparDataEfetuacaoButton"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="* Condição de pagamento:"
+                    android:layout_marginTop="660dp"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="15dp"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:layout_marginTop="760dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/cartao"
+                    android:layout_marginTop="710dp"
+                    android:layout_marginStart="15dp"/>
+                <Button
+                    android:id="@+id/pagar_a_vista"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:text="À vista"
+                    android:textSize="16dp"
+                    android:layout_marginTop="705dp"
+                    android:layout_marginStart="60dp"
+                    android:textColor="@color/black"
+                    android:backgroundTint="@color/button_background_selector" />
+                <Button
+                    android:id="@+id/pagar_mensal"
+                    android:layout_width="105dp"
+                    android:layout_height="50dp"
+                    android:text="Mensal"
+                    android:textSize="16dp"
+                    android:layout_marginTop="705dp"
+                    android:layout_marginStart="165dp"
+                    android:textColor="@color/black"
+                    android:backgroundTint="@color/button_background_selector"
+                    android:onClick="pagamentoMensal"/>
+                <TextView
+                    android:id="@+id/resultado_mensal_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:layout_marginTop="710dp"
+                    android:layout_marginStart="60dp"
+                    android:textColor="@android:color/black"
+                    android:text="Valor mensal: R$ 0.00"
+                    android:visibility="gone" />
+                <Button
+                    android:id="@+id/pagar_recorrente"
+                    android:layout_width="130dp"
+                    android:layout_height="50dp"
+                    android:text="Recorrente"
+                    android:textSize="16dp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="705dp"
+                    android:layout_marginStart="275dp"
+                    android:backgroundTint="@color/button_background_selector"/>
+                <TextView
+                    android:id="@+id/resultado_recorrente_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
+                    android:layout_marginTop="710dp"
+                    android:layout_marginStart="60dp"
+                    android:textColor="@android:color/black"
+                    android:visibility="gone" />
+                <TextView
+                    android:id="@+id/Data_de_vencimento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="* Data de vencimento:"
+                    android:layout_marginTop="770dp"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="15dp"
+                    />
+                <View
+                    android:id="@+id/linha_de_data_vencimento"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/black"
+                    android:layout_marginTop="870dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginStart="15dp"
+                   />
+                <ImageView
+                    android:id="@+id/img_calendario_vencimento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/calendario"
+                    android:layout_marginTop="820dp"
+                    android:layout_marginStart="15dp"
+                  />
+                <Button
+                    android:id="@+id/registrar_data_hoje_data_vencimento"
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:text="Hoje"
+                    android:textSize="20sp"
+                    android:layout_marginTop="810dp"
+                    android:layout_marginStart="70dp"
+                    android:textColor="@color/black"
+                    android:backgroundTint="@color/button_background_selector"
+                    android:onClick="registrarDataHojeDataVencimentoButton"
+                   />
+
+                <Button
+                    android:id="@+id/abrir_calendario_data_vencimento"
+                    android:layout_width="120dp"
+                    android:layout_height="50dp"
+                    android:text="Outros"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="810dp"
+                    android:layout_marginStart="200dp"
+                    android:backgroundTint="@color/button_background_selector"
+                    android:onClick="abrirDatePickerVencimento"
+                   />
+
+                <TextView
+                    android:id="@+id/data_vencimento_textview"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:layout_marginTop="820dp"
+                    android:textColor="@color/black"
+                    android:layout_marginStart="70dp"
+                    android:visibility="gone"
+                    /> <!-- Define a visibilidade inicial como "gone" -->
+
+                <Button
+                    android:id="@+id/limpar_data_button_vencimento"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Limpar data"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"
+                    android:backgroundTint="@color/button_background_selector"
+                    android:layout_marginTop="810dp"
+                    android:layout_marginStart="200dp"
+                    android:visibility="gone"
+                    android:onClick="limparDataVencimentoButton"
+                  /> <!-- Defina a visibilidade inicial como "gone" -->
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Categoria:"
+                    android:layout_marginTop="900dp"
+                    android:textSize="30dp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="15dp"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp"
+                    android:background="@drawable/retangulo_tela_principal_categorias"
+                    android:layout_marginTop="960dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"/>
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/favoritos"
+                    android:layout_marginTop="975dp"
+                    android:layout_marginStart="15dp"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Escolher categoria"
+                    android:layout_marginTop="985dp"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:layout_marginStart="100dp"/>
+                <ImageView
+                    android:id="@+id/Ir_para_tela_escolher_categorias"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/setadireita"
+                    android:layout_marginTop="985dp"
+                    android:layout_marginStart="305dp"/>
+                <Button
+                    android:id="@+id/Registrar_despesa"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:text="Registrar"
+                    android:textSize="30dp"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="1100dp"
+                    android:layout_marginStart="80dp"
+                    android:layout_marginEnd="80dp" />
+            </FrameLayout>
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:menu="@menu/selecionar_categorias"
+        android:background="@color/white"
+        app:itemIconTint="@android:color/darker_gray"
+        app:itemTextColor="@android:color/darker_gray"
+        app:itemTextAppearanceActive="@style/BottomNavigationTextActive"
+        app:itemTextAppearanceInactive="@style/BottomNavigationTextInactive"
+        app:itemBackground="@drawable/bottom_navigation_item_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/nestedScrollView"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

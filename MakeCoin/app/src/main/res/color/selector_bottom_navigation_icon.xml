@@ -1,0 +1,30 @@
+<!-- selector_bottom_navigation_icon.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/navigation_item1"
+        android:drawable="@drawable/navegarcasa"
+        android:state_checked="true"
+        android:color="@color/rosaNavegation" /> <!-- Ícone da casa selecionado -->
+    <item android:id="@+id/navigation_item1"
+        android:drawable="@drawable/navegarcasa"
+        android:state_checked="false"
+        android:color="@color/white" /> <!-- Ícone da casa não selecionado -->
+
+    <item android:id="@+id/navigation_item2"
+        android:drawable="@drawable/mais"
+        android:state_checked="true"
+        android:color="@color/rosaNavegation" /> <!-- Ícone de categorias selecionado -->
+    <item android:id="@+id/navigation_item2"
+        android:drawable="@drawable/mais"
+        android:state_checked="false"
+        android:color="@color/white" /> <!-- Ícone de categorias não selecionado -->
+
+    <item android:id="@+id/navigation_item3"
+        android:drawable="@drawable/estatistico"
+        android:state_checked="true"
+        android:color="@color/rosaNavegation" /> <!-- Ícone de gráficos selecionado -->
+    <item android:id="@+id/navigation_item3"
+        android:drawable="@drawable/estatistico"
+        android:state_checked="false"
+        android:color="@color/white" /> <!-- Ícone de gráficos não selecionado -->
+</selector>
+

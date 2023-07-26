@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/dialog_rounded_background"
+        android:padding="16dp">
+    <EditText
+        android:id="@+id/nova_senha_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:hint="Nova senha"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/confirmar_senha_edit_text"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:hint="Confirmar nova senha"
+        android:inputType="textPassword"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+    </LinearLayout>
+</LinearLayout>

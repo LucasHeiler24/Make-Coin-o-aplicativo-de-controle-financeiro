@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="370dp"
+    android:id="@+id/frameLayoutDespesa"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_registros"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginBottom="25dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp"
+        >
+
+        <ImageView
+            android:id="@+id/Circulo_cor"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/imagem_redonda"
+            app:tint="#17C245"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="15dp"/>
+        <ImageView
+            android:id="@+id/categoria_de_salario"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/categoriasalario"
+            android:layout_marginTop="-42dp"
+            android:layout_marginStart="33dp"
+            android:layout_marginEnd="15dp"/>
+        <TextView
+            android:id="@+id/itemNomeCategoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_marginTop="-32dp"
+            android:textAlignment="center"
+            />
+        <TextView
+            android:id="@+id/itemNomeDespesa"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="20dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            >
+
+            <TextView
+                android:id="@+id/itemDescricao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                />
+
+            <TextView
+                android:id="@+id/itemFavorecido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:layout_marginStart="20dp"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/registroLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/valorRegistro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textColor="@color/red"
+                android:textAlignment="center"
+                android:layout_marginStart="20dp"
+                />
+
+            <TextView
+                android:id="@+id/dataRegistro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16dp"
+                android:textAlignment="center"
+                android:layout_marginStart="140dp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

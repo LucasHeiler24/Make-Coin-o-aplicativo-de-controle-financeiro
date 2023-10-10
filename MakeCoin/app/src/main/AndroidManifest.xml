@@ -11,10 +11,42 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MakeCoin"
         tools:targetApi="31">
+        <activity
+            android:name=".view.telaDeTodosRegistros.activity_tela_de_todos_os_registros"
+            android:exported="false" />
+        <activity
+            android:name=".view.telaEditarRegistros.activity_tela_editar_as_despesas"
+            android:exported="false" />
+        <activity
+            android:name=".view.telaEditarRegistros.activity_tela_editar_despesa_escolher_categorias"
+            android:exported="false" />
+        <activity
+            android:name=".view.telaEditarRegistros.activity_tela_editar_despesa"
+            android:exported="false" />
+        <activity
+            android:name=".view.telaEditarRegistros.activity_tela_editar_escolher_categorias"
+            android:exported="false" />
+        <activity
+            android:name=".view.telaEditarRegistros.activity_tela_editar_os_registros_receitas"
+            android:exported="false" />
+        <activity
+            android:name=".view.telaEditarRegistros.activity_tela_visualizar_despesas"
+            android:exported="false" />
+        <activity
+            android:name=".view.telaEditarRegistros.activity_tela_visualizar_registro"
+            android:exported="false" />
+        <activity
+            android:name=".view.TelaDasCategorias.activity_tela_das_categorias_receitas"
+            android:exported="false" />
+        <activity
+            android:name=".view.TelaDasCategorias.activity_tela_das_categorias_despesas"
+            android:exported="false" />
+        <activity
+            android:name=".view.TelaPrincipalCategorias.activity_tela_principal_categorias_receitas"
+            android:exported="false" />
         <activity
             android:name=".view.TelaPrincipalGraficos.TelaPrincipalGraficos"
             android:exported="false" />
@@ -35,6 +67,9 @@
             android:exported="false" /> <!-- Atividade da segunda tela de cadastro -->
         <activity
             android:name=".view.CadastroUsuarios.CadastroUsuarios"
+            android:exported="false"></activity>
+        <activity
+            android:name=".view.CadastroUsuarios.activity_splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

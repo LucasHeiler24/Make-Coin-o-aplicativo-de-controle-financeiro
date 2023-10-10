@@ -28,7 +28,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="250dp"
-                    android:background="@drawable/retangulo_redondo" />
+                    android:background="@drawable/retangulo_redondo"
+                    android:backgroundTint="#000044"/>
 
                 <ImageView
                     android:id="@+id/profileImageView"
@@ -53,7 +54,7 @@
                     android:id="@+id/btn_alterar_imagem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="@color/azulExtraForte"
+                    android:backgroundTint="#000000"
                     android:text="Alterar imagem"
                     android:layout_marginTop="190dp"
                     android:layout_marginStart="100dp"
@@ -182,7 +183,7 @@
                     android:layout_marginStart="50dp"
                     android:text="Deseja alterar sua senha?"
                     android:textSize="20dp"
-                    android:backgroundTint="#4B6ABE"/>
+                    android:backgroundTint="#1D0247"/>
 
         </LinearLayout>
 
@@ -197,7 +198,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:itemIconSize="45dp"
-        android:background="#170853"
+        android:background="#000044"
         app:itemIconTint="@color/white"
         app:menu="@menu/navegacao"
         android:outlineProvider="none"

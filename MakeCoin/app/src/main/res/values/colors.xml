@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="barra1">#000044</color>
     <color name="black">#FF000000</color>
+    <color name="dark">#121212</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#3E8CE7</color>
     <color name="azulForte">#34088A</color>

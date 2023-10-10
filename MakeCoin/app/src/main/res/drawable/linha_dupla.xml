@@ -12,7 +12,7 @@
     </item>
     <item android:left="90dp" android:right="90dp">
         <shape android:shape="rectangle">
-            <solid android:color="#232262" />
+            <solid android:color="#000044" />
         </shape>
     </item>
     <item android:left="90dp" android:right="90dp">

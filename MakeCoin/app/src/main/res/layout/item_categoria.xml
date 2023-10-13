@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/layout_da_tela"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context=".view.CadastroUsuarios.CadastroUsuarios"
+        android:background="@color/white"
+        android:padding="5dp"
+        >
+
+        <View
+            android:id="@+id/viewCategoria"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="@drawable/retangulo_para_as_telas_categorias"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            />
+        <ImageView
+            android:id="@+id/circuloCor"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/imagem_redonda"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="15dp"/>
+        <ImageView
+            android:id="@+id/categoriaCriadaUsuario"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/setadireita"
+            app:tint="#00A43F"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="340dp"
+            android:layout_marginEnd="15dp"/>
+        <TextView
+            android:id="@+id/nomeCategoria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25dp"
+            android:layout_marginTop="30dp"
+            android:textColor="@color/black"
+            android:layout_marginStart="90dp"/>
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

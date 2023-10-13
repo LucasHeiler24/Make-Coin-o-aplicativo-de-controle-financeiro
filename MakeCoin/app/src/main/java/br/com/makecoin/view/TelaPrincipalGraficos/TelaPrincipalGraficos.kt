@@ -162,6 +162,7 @@ class TelaPrincipalGraficos : AppCompatActivity() {
         }
         obterDadosReceitas()
         obterDadosDespesasEPlotarGrafico()
+        obterDadosReceitasEPlotarGrafico()
     }
 
     private fun obterDadosReceitas() {
@@ -450,6 +451,7 @@ class TelaPrincipalGraficos : AppCompatActivity() {
             atualizarMesSelecionadoNoDialog(mesSelecionado, anoSelecionado)
             obterDadosReceitas()
             obterDadosDespesasEPlotarGrafico()
+            obterDadosReceitasEPlotarGrafico()
 
             dialog.dismiss() // Fechar o dialog após confirmar
         }
@@ -545,7 +547,13 @@ class TelaPrincipalGraficos : AppCompatActivity() {
 
         // Calcule o valor total das despesas
         var valorTotalDespesas = 0.0
-        
+
+        // Adicione os círculos coloridos e nomes das categorias ao layout
+        val legendasLayout = findViewById<LinearLayout>(R.id.legendasPizzaDespesaLayout)
+        legendasLayout.removeAllViews()
+        legendasLayout.orientation = LinearLayout.VERTICAL
+        legendasLayout.gravity = Gravity.START
+
         // Iterar sobre os totais por categoria para criar as entradas do gráfico
         for ((categoria, total) in totalPorCategoria) {
             valorTotalDespesas += total
@@ -574,11 +582,12 @@ class TelaPrincipalGraficos : AppCompatActivity() {
             pieChart.setNoDataText("Você não possui registros para este mês.")
             pieChart.setNoDataTextColor(Color.GRAY)
             pieChart.invalidate()
+            legendasLayout.visibility = View.GONE
 
             return  // Não há dados para plotar, então saímos da função
         }
         pieChart.setNoDataText("")  // Limpar a mensagem se havia sido exibida anteriormente
-
+        legendasLayout.visibility = View.VISIBLE
 
         val formatter = PercentFormatter(pieChart)
         data.setValueFormatter(formatter)
@@ -592,11 +601,6 @@ class TelaPrincipalGraficos : AppCompatActivity() {
         //pieChart.setDrawHoleEnabled(false)
         pieChart.invalidate()
 
-        // Adicione os círculos coloridos e nomes das categorias ao layout
-        val legendasLayout = findViewById<LinearLayout>(R.id.legendasPizzaDespesaLayout)
-        legendasLayout.removeAllViews()
-        legendasLayout.orientation = LinearLayout.VERTICAL
-        legendasLayout.gravity = Gravity.START
 
         // Dentro do loop para criar as legendas
         for (i in 0 until despesasList.size) {
@@ -666,6 +670,200 @@ class TelaPrincipalGraficos : AppCompatActivity() {
     }
 
     private fun obterTotaisPorCategoria(despesasList: List<Transacao>): Map<String, Double> {
+        val totaisPorCategoria = mutableMapOf<String, Double>()
+
+        for (despesa in despesasList) {
+            val categoria = despesa.categoria ?: "Sem Categoria"
+            val valorDespesa = despesa.valor
+
+            val totalAtual = totaisPorCategoria.getOrDefault(categoria, 0.0)
+            totaisPorCategoria[categoria] = totalAtual + valorDespesa
+        }
+
+        return totaisPorCategoria
+    }
+
+
+    private fun obterDadosReceitasEPlotarGrafico() {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+
+        // Suponha que você tenha uma coleção "despesas" no Firestore
+        val despesasRef = FirebaseFirestore.getInstance().collection("receitas")
+            .whereEqualTo("userId", userId)
+            .whereEqualTo("recebido_ou_nao", "Recebido")
+
+        despesasRef.get()
+            .addOnSuccessListener { documents ->
+                val receitasList = mutableListOf<Transacao>()
+
+                for (document in documents) {
+                    val categoria = document.getString("categoria_escolhida_pelo_usuario_receitas")
+                    val iconeResId = (document.get("iconeReceita") as? Long)?.toInt() ?: 0
+                    val corCirculo = (document.get("corCirculoReceita") as? Long)?.toInt() ?: 0
+                    val valorReceita = document.getDouble("valor_da_receita") ?: 0.0
+                    val dataEfetuacaoTimestamp = document.get("data_efetuacao_receitas")
+
+                        if (dataEfetuacaoTimestamp is com.google.firebase.Timestamp) {
+                            val dataEfetuacao = dataEfetuacaoTimestamp.toDate()
+                            val calendar = Calendar.getInstance()
+                            calendar.time = dataEfetuacao
+
+                            if (calendar.get(Calendar.MONTH) == mesSelecionado && calendar.get(
+                                    Calendar.YEAR
+                                ) == anoSelecionado
+                            ) {
+                                // Suponha que você tenha uma classe Transacao para armazenar as informações
+                                val receita = Transacao(categoria, iconeResId, corCirculo, valorReceita)
+
+                                receitasList.add(receita)
+                            }
+                        }
+                    }
+                // Agora você tem a lista de despesas com as informações de categoria, ícone e cor
+                // Use esses dados para plotar o gráfico de pizza de despesas
+                val totaisPorCategoria = obterTotaisReceitasPorCategoria(receitasList)
+
+                plotarGraficoPizzaReceitas(receitasList, totaisPorCategoria)
+            }
+            .addOnFailureListener { exception ->
+                Toast.makeText(
+                    this,
+                    "Falha ao obter despesas: ${exception.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+    }
+
+    private fun plotarGraficoPizzaReceitas(receitasList: List<Transacao>,  totalPorCategoria: Map<String, Double>) {
+        // Crie uma lista de entradas para o gráfico de pizza
+        val entries = mutableListOf<PieEntry>()
+        val cores = mutableListOf<Int>()
+        val categoriasProcessadas = mutableSetOf<String>()
+
+        // Calcule o valor total das despesas
+        var valorTotalReceitas = 0.0
+
+        // Adicione os círculos coloridos e nomes das categorias ao layout
+        val legendasLayout = findViewById<LinearLayout>(R.id.legendasPizzaReceitaLayout)
+        legendasLayout.removeAllViews()
+        legendasLayout.orientation = LinearLayout.VERTICAL
+        legendasLayout.gravity = Gravity.START
+
+        // Iterar sobre os totais por categoria para criar as entradas do gráfico
+        for ((categoria, total) in totalPorCategoria) {
+            valorTotalReceitas += total
+
+            val receita = receitasList.find { it.categoria == categoria }
+            val entry = PieEntry(total.toFloat())
+
+            if (receita != null) {
+                cores.add(receita.corCirculo)
+            }
+
+            entries.add(entry)
+        }
+
+        // Crie o conjunto de dados
+        val dataSet = PieDataSet(entries, "")
+        dataSet.colors = cores
+
+        // Crie o gráfico de pizza
+        val pieChart = findViewById<PieChart>(R.id.pieChartReceitas)
+        val data = PieData(dataSet)
+
+        if (valorTotalReceitas == 0.0) {
+            // Limpar o gráfico e exibir mensagem
+            pieChart.clear()
+            pieChart.setNoDataText("Você não possui registros para este mês.")
+            pieChart.setNoDataTextColor(Color.GRAY)
+            pieChart.invalidate()
+            legendasLayout.visibility = View.GONE
+
+            return  // Não há dados para plotar, então saímos da função
+        }
+        pieChart.setNoDataText("")  // Limpar a mensagem se havia sido exibida anteriormente
+        legendasLayout.visibility = View.VISIBLE
+
+        val formatter = PercentFormatter(pieChart)
+        data.setValueFormatter(formatter)
+
+        pieChart.data = data
+        pieChart.description.isEnabled = false
+        pieChart.legend.isEnabled = false
+        pieChart.setUsePercentValues(true)
+        data.setValueTextColor(Color.WHITE)
+        data.setValueTextSize(12f) // Tamanho da fonte (ajuste conforme necessário)
+        //pieChart.setDrawHoleEnabled(false)
+        pieChart.invalidate()
+
+        // Dentro do loop para criar as legendas
+        for (i in 0 until receitasList.size) {
+            val categoria = receitasList[i].categoria
+            val corCategoria = receitasList[i].corCirculo
+
+            if (!categoriasProcessadas.contains(categoria)) {
+                // Crie um layout horizontal para a entrada (círculo + texto)
+                val entryLayout = LinearLayout(this)
+                entryLayout.orientation = LinearLayout.HORIZONTAL
+                val entryLayoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                entryLayoutParams.bottomMargin =
+                    resources.getDimensionPixelSize(R.dimen.circle_margin)
+                entryLayout.layoutParams = entryLayoutParams
+
+                // Crie o círculo
+                val circleView = View(this)
+                circleView.setBackgroundResource(R.drawable.circle_background)
+                val circleParams = LinearLayout.LayoutParams(
+                    resources.getDimensionPixelSize(R.dimen.circle_diameter),
+                    resources.getDimensionPixelSize(R.dimen.circle_diameter)
+                )
+                circleParams.gravity = Gravity.CENTER_VERTICAL
+                circleView.layoutParams = circleParams
+                circleView.setBackgroundColor(corCategoria)
+
+                // Chame createCategoryTextView com o conjunto de categorias já processadas
+                val categoryTextView =
+                    createCategoryReceitasTextView(categoria, totalPorCategoria, categoriasProcessadas)
+                val textParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                textParams.gravity = Gravity.CENTER_VERTICAL
+                textParams.marginStart = resources.getDimensionPixelSize(R.dimen.circle_margin)
+                categoryTextView.layoutParams = textParams
+
+                // Adicione o círculo e o nome da categoria ao layout horizontal
+                entryLayout.addView(circleView)
+                entryLayout.addView(categoryTextView)
+
+                // Adicione o layout horizontal ao layout vertical
+                legendasLayout.addView(entryLayout)
+            }
+        }
+    }
+    private fun createCategoryReceitasTextView(categoria: String?, totalPorCategoria: Map<String, Double>, categoriasProcessadas: MutableSet<String>): TextView {
+        val textView = TextView(this)
+
+        if (!categoria.isNullOrBlank() && !categoriasProcessadas.contains(categoria)) {
+            val totalCategoria = totalPorCategoria[categoria] ?: 0.0
+            val texto = "$categoria - R$ ${formatCurrencyValue(totalCategoria)}"
+
+            textView.text = texto
+            textView.textSize = resources.getDimension(R.dimen.category_text_size)
+
+            // Adicione a categoria ao conjunto de categorias já processadas
+            categoriasProcessadas.add(categoria)
+        } else {
+            textView.visibility = View.GONE // Oculta a TextView se a categoria estiver em branco ou já foi processada
+        }
+
+        return textView
+    }
+
+    private fun obterTotaisReceitasPorCategoria(despesasList: List<Transacao>): Map<String, Double> {
         val totaisPorCategoria = mutableMapOf<String, Double>()
 
         for (despesa in despesasList) {

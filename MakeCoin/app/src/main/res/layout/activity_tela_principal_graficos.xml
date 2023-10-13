@@ -143,6 +143,33 @@
                     android:padding="16dp"
                     android:layout_marginTop="20dp">
                 </LinearLayout>
+            <TextView
+                android:id="@+id/receitasCategoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Receitas por categoria"
+                android:layout_below="@+id/legendasPizzaDespesaLayout"
+                android:textSize="25dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="20dp"/>
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/pieChartReceitas"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/receitasCategoria"/>
+
+            <LinearLayout
+                android:id="@+id/legendasPizzaReceitaLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_below="@+id/pieChartReceitas"
+                android:padding="16dp"
+                android:layout_marginTop="20dp">
+            </LinearLayout>
         </RelativeLayout>
 
     </androidx.core.widget.NestedScrollView>

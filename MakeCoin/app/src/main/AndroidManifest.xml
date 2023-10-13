@@ -15,6 +15,9 @@
         android:theme="@style/Theme.MakeCoin"
         tools:targetApi="31">
         <activity
+            android:name=".view.Criar_categoria_despesa.activity_criar_categoria_despesa"
+            android:exported="false" />
+        <activity
             android:name=".view.telaDeTodosRegistros.activity_tela_de_todos_os_registros"
             android:exported="false" />
         <activity
@@ -67,7 +70,7 @@
             android:exported="false" /> <!-- Atividade da segunda tela de cadastro -->
         <activity
             android:name=".view.CadastroUsuarios.CadastroUsuarios"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".view.CadastroUsuarios.activity_splash"
             android:exported="true">

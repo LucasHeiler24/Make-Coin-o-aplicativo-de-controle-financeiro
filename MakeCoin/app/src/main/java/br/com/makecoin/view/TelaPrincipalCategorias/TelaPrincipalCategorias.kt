@@ -211,7 +211,7 @@ class TelaPrincipalCategorias : AppCompatActivity() {
         val valorDaDespesaEditText = findViewById<EditText>(R.id.valor_da_despesa)
 
         // Crie um SpannableString com o hint e defina a cor vermelha
-        val hint = "R$ 0,00"
+        val hint = "0.00"
         val spannableString = SpannableString(hint)
         spannableString.setSpan(ForegroundColorSpan(Color.WHITE), 0, hint.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
         // Defina o SpannableString como o hint do EditText
@@ -1561,7 +1561,9 @@ class TelaPrincipalCategorias : AppCompatActivity() {
                     for (document in querySnapshot) {
                         val nomeFavorecido = document.getString("nome_favorecido")
                         nomeFavorecido?.let {
-                            nomesFavorecidosSet.add(it) // Adicionar ao conjunto para garantir nomes únicos
+                            if (it.isNotBlank()) { // Verifique se o valor não está em branco
+                                nomesFavorecidosSet.add(it)
+                            }
                         }
                     }
 
@@ -1581,8 +1583,11 @@ class TelaPrincipalCategorias : AppCompatActivity() {
                                 override fun onTextChanged(d: CharSequence?, start: Int, before: Int, count: Int) {
                                     Log.d("DespesasApp", "Texto alterado: $d")
 
-                                    val filtro = nomesFavorecidosList.filter { it.contains(d.toString(), ignoreCase = true) }
-
+                                    val filtro = if (d.isNullOrBlank()) {
+                                        emptyList() // Retorna uma lista vazia se o texto estiver em branco
+                                    } else {
+                                        nomesFavorecidosList.filter { it.contains(d.toString(), ignoreCase = true) }
+                                    }
                                     val adapter = ArrayAdapter(this@TelaPrincipalCategorias, android.R.layout.simple_dropdown_item_1line, filtro)
                                     autoCompleteTextViewFavorecido.setAdapter(adapter)
 

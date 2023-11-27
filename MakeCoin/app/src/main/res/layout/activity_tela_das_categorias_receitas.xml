@@ -23,10 +23,6 @@
             tools:context=".view.CadastroUsuarios.CadastroUsuarios"
             android:background="@color/white">
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="140dp"
@@ -58,8 +54,7 @@
                     android:layout_width="300dp"
                     android:layout_height="100dp"
                     android:layout_marginTop="100dp"
-                    android:layout_marginStart="50dp"
-                    android:layout_marginEnd="90dp"
+                    android:layout_centerHorizontal="true"
                     android:background="@drawable/retangulo_tela_principal"
                     android:backgroundTint="#330066"/>
                 <TextView
@@ -191,6 +186,7 @@
                     android:textColor="@color/black"
                     android:layout_marginStart="90dp"/>
                 <View
+                    android:id="@+id/ultimaView"
                     android:layout_width="match_parent"
                     android:layout_height="90dp"
                     android:background="@drawable/retangulo_para_as_telas_categorias"
@@ -230,7 +226,26 @@
                     android:textSize="25dp"
                     android:textColor="@color/black"
                     android:layout_marginStart="90dp"/>
-            </FrameLayout>
+            <LinearLayout
+                android:id="@+id/layoutCategorias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/ultimaView">
+                <!-- Categorias serão adicionadas aqui -->
+            </LinearLayout>
+            <Button
+                android:id="@+id/btnCriarCategoria"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="@color/azulExtraForte"
+                android:layout_marginTop="20dp"
+                android:text="Criar sua categoria"
+                android:layout_below="@+id/layoutCategorias"
+                android:textSize="30dp"/>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 

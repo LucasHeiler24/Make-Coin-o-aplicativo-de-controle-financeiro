@@ -194,7 +194,7 @@ class activity_tela_editar_os_registros_receitas : AppCompatActivity() {
         valorDaReceitaEditText.setTextAppearance(R.style.HintStyLE2)
 
         // Defina a cor verde também para o hint do EditText usando um SpannableString
-        val hint = "R$ 0,00"
+        val hint = "0.00"
         val spannableString = SpannableString(hint)
         spannableString.setSpan(
             ForegroundColorSpan(resources.getColor(R.color.green)),
@@ -332,7 +332,7 @@ class activity_tela_editar_os_registros_receitas : AppCompatActivity() {
             val novoIconeResId = data?.getIntExtra("icone_res_id", 0) ?: 0
             val novaCorCirculo = data?.getIntExtra("circulo_cor", 0) ?: 0
 
-            if (novaCategoria != null && novoIconeResId != 0 && novaCorCirculo != 0) {
+            if (novaCategoria != null && novaCorCirculo != 0) {
                 val categoriaImageView = findViewById<ImageView>(R.id.categoria_de_salario)
                 categoriaImageView.setImageResource(novoIconeResId)
 
@@ -513,13 +513,17 @@ class activity_tela_editar_os_registros_receitas : AppCompatActivity() {
                     Log.d("DespesasApp", "Sucesso ao obter dados do Firestore para favorecidos")
 
                     val nomesFavorecidosList = mutableListOf<String>()
+                    val nomesFavorecidosSet = mutableSetOf<String>() // Usar um conjunto para armazenar nomes únicos
 
                     for (document in querySnapshot) {
                         val nomeFavorecido = document.getString("nome_favorecido_receita")
                         nomeFavorecido?.let {
-                            nomesFavorecidosList.add(it)
+                            if (it.isNotBlank()) { // Verifique se o valor não está em branco
+                                nomesFavorecidosSet.add(it)
+                            }
                         }
                     }
+                    nomesFavorecidosList.addAll(nomesFavorecidosSet.toList()) // Converter o conjunto de volta para uma lista
 
                     val textInputLayout3: TextInputLayout = findViewById(R.id.Nome_do_favorecido_receita)
                     val autoCompleteTextViewFavorecidoReceita = textInputLayout3.editText as? AutoCompleteTextView

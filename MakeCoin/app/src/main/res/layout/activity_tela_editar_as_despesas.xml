@@ -73,14 +73,17 @@
                     android:textSize="30dp"/>
                 <EditText
                     android:id="@+id/valor_da_despesa"
-                    android:layout_width="match_parent"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:textSize="45dp"
                     android:hint="R$ 0,00"
                     android:textAlignment="center"
+                    android:layout_marginStart="105dp"
                     android:inputType="numberDecimal"
                     style="@style/EditTextNoBackground"
-                    android:textAppearance="@style/HintStyle"/>
+                    android:textAppearance="@style/HintStyle"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -102,7 +105,11 @@
                         android:layout_height="wrap_content"
                         android:hint="Ex: Celesc"
                         android:layout_marginStart="15dp"
-                        android:layout_marginEnd="15dp"/>
+                        android:layout_marginEnd="15dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:inputType="text|textNoSuggestions"
+                        android:singleLine="true"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -127,7 +134,11 @@
                         android:layout_height="wrap_content"
                         android:hint="Ex: Despesas com remédios"
                         android:layout_marginStart="15dp"
-                        android:layout_marginEnd="15dp"/>
+                        android:layout_marginEnd="15dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:inputType="text|textNoSuggestions"
+                        android:singleLine="true"/>
 
                 </com.google.android.material.textfield.TextInputLayout>
                 <TextView
@@ -146,7 +157,11 @@
                     style="@style/EditTextNoBackgroundRounded"
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
-                    android:hint="Ex: Hoje gastei com os remédios do mês: Dipirona, Paracetanol e Doril"/>
+                    android:hint="Ex: Hoje gastei com os remédios do mês"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:inputType="text|textNoSuggestions"
+                    android:singleLine="true"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

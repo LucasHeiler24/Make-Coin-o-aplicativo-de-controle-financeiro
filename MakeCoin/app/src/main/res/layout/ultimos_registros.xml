@@ -50,6 +50,9 @@
             android:textStyle="bold"
             android:layout_marginTop="20dp"
             android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:maxLines="1"
+            android:ellipsize="end"
             />
 
         <LinearLayout
@@ -57,23 +60,27 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            >
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:id="@+id/itemDescricao"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textSize="18dp"
-                />
+                android:maxLines="2"
+                android:ellipsize="end" />
 
             <TextView
                 android:id="@+id/itemFavorecido"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:textSize="18dp"
-                android:layout_marginStart="20dp"
-                />
+                android:maxLines="2"
+                android:ellipsize="end"
+                android:layout_marginStart="70dp" />
         </LinearLayout>
         <LinearLayout
             android:id="@+id/registroLayout"

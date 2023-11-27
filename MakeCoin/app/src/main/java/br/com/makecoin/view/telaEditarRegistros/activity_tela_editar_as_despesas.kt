@@ -236,10 +236,17 @@ class activity_tela_editar_as_despesas : AppCompatActivity() {
                             findViewById<TextView>(R.id.data_efetuacao_textview).visibility = View.GONE
                         }
 
-                        // Botão "Outros" para abrir o DatePickerDialog
-                        val abrirCalendarioDataEfetuacaoButton = findViewById<Button>(R.id.abrir_calendario_data_efetuacao)
-                        abrirCalendarioDataEfetuacaoButton.setOnClickListener {
-                            calendarioRecorrente() // Chama o método para exibir o DatePickerDialog
+                        if(recurrenceOption == "Mensal") {
+                            // Botão "Outros" para abrir o DatePickerDialog
+                            val abrirCalendarioDataEfetuacaoButton = findViewById<Button>(R.id.abrir_calendario_data_efetuacao)
+                            abrirCalendarioDataEfetuacaoButton.setOnClickListener {
+                                calendarioRecorrente() // Chama o método para exibir o DatePickerDialog
+                            }
+                        } else{
+                            val abrirCalendarioDataEfetuacaoButton = findViewById<Button>(R.id.abrir_calendario_data_efetuacao)
+                            abrirCalendarioDataEfetuacaoButton.setOnClickListener {
+                                calendarioRecorrenteAnual() // Chama o método para exibir o DatePickerDialog
+                            }
                         }
                     }
 
@@ -306,7 +313,7 @@ class activity_tela_editar_as_despesas : AppCompatActivity() {
         valorDaReceitaEditText.setTextAppearance(R.style.HintStyle)
 
         // Defina a cor verde também para o hint do EditText usando um SpannableString
-        val hint = "R$ 0,00"
+        val hint = "0.00"
         val spannableString = SpannableString(hint)
         spannableString.setSpan(
             ForegroundColorSpan(resources.getColor(R.color.red)),
@@ -355,6 +362,7 @@ class activity_tela_editar_as_despesas : AppCompatActivity() {
             var iconeCategoria: Int = 0
             var corCategoria: Int = 0
             var dataEfetuacaoTemporaria: Calendar? = null
+            var categoriaSelecionada: String? = ""
         }
     }
     private fun exibirDialogoOpcoesEdicao(despesasId: String) {
@@ -756,6 +764,63 @@ class activity_tela_editar_as_despesas : AppCompatActivity() {
         // Exiba o diálogo seletor de data.
         datePickerDialog.show()
     }
+    private fun calendarioRecorrenteAnual() {
+        // Recupere o valor de data do Firebase Firestore como um Calendar?
+        val dataEfetuacaoCalendar = DadosTemporariosIntermediarios.dataEfetuacaoTemporaria
+
+        // Use o objeto Calendar para definir a data padrão no DatePickerDialog
+        val calendar = Calendar.getInstance()
+
+        if (dataEfetuacaoCalendar != null) {
+            val year = dataEfetuacaoCalendar.get(Calendar.YEAR)
+            val month = dataEfetuacaoCalendar.get(Calendar.MONTH)
+            val dayOfMonth = dataEfetuacaoCalendar.get(Calendar.DAY_OF_MONTH)
+            calendar.set(year, month, dayOfMonth)
+        }
+
+        val year = calendar.get(Calendar.YEAR)
+        val month = calendar.get(Calendar.MONTH)
+        val dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH)
+
+        val datePickerDialog = DatePickerDialog(this, { _, year, month, dayOfMonth ->
+            // Obtenha o ID do usuário logado
+            val userId = FirebaseAuth.getInstance().currentUser?.uid
+
+            val selectedCalendar = Calendar.getInstance()
+            selectedCalendar.set(year, month, dayOfMonth)
+
+            // Verifique se a data selecionada está dentro do mês do Firestore
+            val firestoreMonth = calendar.get(Calendar.MONTH)
+            val firestoreYear = calendar.get(Calendar.YEAR)
+
+            if (year == firestoreYear) {
+                // A data está dentro do mês do Firestore, permita a seleção
+                // Aqui você pode atualizar a data da despesa ou realizar qualquer ação necessária
+                if (selectedCalendar.before(selectedCalendar) || selectedCalendar == selectedCalendar) {
+                    toggleSwitch.isChecked = true // Ativa o toggle
+                } else {
+                    toggleSwitch.isChecked = false // Deixa o toggle desativado
+                }
+                findViewById<Button>(R.id.abrir_calendario_data_efetuacao).visibility = View.GONE
+
+                // Exiba o botão "Limpar Data"
+                findViewById<Button>(R.id.limpar_data_button).visibility = View.VISIBLE
+
+                selectedDateEfetuacao = selectedCalendar
+                updateDataEfetuacaoTextView(selectedDateEfetuacao)
+                dataEfetuacaoInMillis = selectedDateEfetuacao?.timeInMillis ?: 0
+
+                // Após selecionar a data, exiba o campo de texto com a data selecionada
+                findViewById<TextView>(R.id.data_efetuacao_textview).visibility = View.VISIBLE
+            } else {
+                // A data não está dentro do mês do Firestore, exiba uma mensagem de erro
+                Toast.makeText(this, "Selecione uma data dentro do ano atual", Toast.LENGTH_LONG).show()
+            }
+        }, year, month, dayOfMonth)
+
+        // Exiba o diálogo seletor de data.
+        datePickerDialog.show()
+    }
     private fun exibirDialogConfirmacao() {
         val despesasId = intent.getStringExtra("despesa_id") ?: ""
 
@@ -902,7 +967,7 @@ class activity_tela_editar_as_despesas : AppCompatActivity() {
             val novoIconeResId = data?.getIntExtra("icone_res_id", 0) ?: 0
             val novaCorCirculo = data?.getIntExtra("circulo_cor", 0) ?: 0
 
-            if (novaCategoria != null && novoIconeResId != 0 && novaCorCirculo != 0) {
+            if (novaCategoria != null && novaCorCirculo != 0) {
                 val categoriaImageView = findViewById<ImageView>(R.id.categoria_de_salario)
                 categoriaImageView.setImageResource(novoIconeResId)
 
@@ -1193,7 +1258,9 @@ class activity_tela_editar_as_despesas : AppCompatActivity() {
                     for (document in querySnapshot) {
                         val nomeFavorecido = document.getString("nome_favorecido")
                         nomeFavorecido?.let {
-                            nomesFavorecidosSet.add(it) // Adicionar ao conjunto para garantir nomes únicos
+                            if (it.isNotBlank()) { // Verifique se o valor não está em branco
+                                nomesFavorecidosSet.add(it)
+                            }
                         }
                     }
 

@@ -127,7 +127,7 @@ class activity_tela_principal_categorias_receitas : AppCompatActivity() {
                 valorDaReceitaEditText.setTextAppearance(R.style.HintStyLE2)
 
                 // Defina a cor verde também para o hint do EditText usando um SpannableString
-                val hint = "R$ 0,00"
+                val hint = "0.00"
                 val spannableString = SpannableString(hint)
                 spannableString.setSpan(
                     ForegroundColorSpan(resources.getColor(R.color.white)),
@@ -675,7 +675,9 @@ class activity_tela_principal_categorias_receitas : AppCompatActivity() {
                     for (document in querySnapshot) {
                         val nomeFavorecido = document.getString("nome_favorecido_receita")
                         nomeFavorecido?.let {
-                            nomesFavorecidosSet.add(it) // Adicionar ao conjunto para garantir nomes únicos
+                            if (it.isNotBlank()) { // Verifique se o valor não está em branco
+                                nomesFavorecidosSet.add(it)
+                            }
                         }
                     }
 

@@ -185,8 +185,8 @@ class TelaPrincipal : AppCompatActivity() {
         setaBaixoImageView.setOnClickListener {
             mostrarDialogMiniCalendario()
         }
-        carregarDespesas()
-        carregarDespesasRecorrentes()
+        carregarDespesas(mesSelecionado, anoSelecionado)
+        carregarDespesasRecorrentes(mesSelecionado, anoSelecionado)
         carregarUltimosRegistros()
 
         // Obter os dados da intent
@@ -271,14 +271,14 @@ class TelaPrincipal : AppCompatActivity() {
 
                     // Verificar se esta é a última parcela e ajustar o mês exibido
                     if (isUltimaParcela) {
-                        proximaParcelaTextView.text = "$mesAbreviado/$dia (Última Parcela)"
+                        proximaParcelaTextView.text = "$dia/$mesAbreviado (Última Parcela)"
                     } else {
-                        proximaParcelaTextView.text = "$mesAbreviado/$dia"
+                        proximaParcelaTextView.text = "$dia/$mesAbreviado"
                     }
                     containerLayout.addView(itemDespesa)
 
                     // Verificar se esta é a próxima parcela a ser paga
-                    if (proximaParcelaTextView.text == "$mesSelecionado/01") {
+                    if (proximaParcelaTextView.text == "01/$mesAbreviado") {
                         proximaParcelaTextView.setTextColor(Color.RED)
                     }
                 }
@@ -315,14 +315,14 @@ class TelaPrincipal : AppCompatActivity() {
 
                     // Verificar se esta é a última parcela e ajustar o mês exibido
                     if (isUltimaParcela) {
-                        proximaParcelaTextView.text = "$mesAbreviado/$dia (Última Parcela)"
+                        proximaParcelaTextView.text = "$dia/$mesAbreviado (Última Parcela)"
                     } else {
-                        proximaParcelaTextView.text = "$mesAbreviado/$dia"
+                        proximaParcelaTextView.text = "$dia/$mesAbreviado"
                     }
                     containerLayout.addView(itemDespesa)
 
                     // Verificar se esta é a próxima parcela a ser paga
-                    if (proximaParcelaTextView.text == "$mesSelecionado/01") {
+                    if (proximaParcelaTextView.text == "01/$mesSelecionado") {
                         proximaParcelaTextView.setTextColor(Color.RED)
                     }
                 }
@@ -335,7 +335,10 @@ class TelaPrincipal : AppCompatActivity() {
         calendar.set(Calendar.MONTH, mes)
         return dateFormat.format(calendar.time)
     }
-    private fun carregarDespesas() {
+    private fun carregarDespesas(
+        mesSelecionado: Int,
+        anoSelecionado: Int
+    ) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         userId?.let { uid ->
             val db = FirebaseFirestore.getInstance()
@@ -348,7 +351,32 @@ class TelaPrincipal : AppCompatActivity() {
                 .addOnSuccessListener { documents ->
                     val documentosDespesas = documents.documents // Obter a lista de documentos despesas
 
-                    exibirDespesas(documentosDespesas, mesSelecionado, anoSelecionado)
+                    val textViewNoRegistros = findViewById<TextView>(R.id.textViewPagamentosMensais) // Substitua R.id.textViewNoRegistros pelo ID real do seu TextView
+
+                    // Verifique se há registros para o mês e ano selecionados na lista de documentos
+                    val registrosParaMesAnoSelecionados = documentosDespesas.filter { document ->
+                        val dataEfetuacaoTimestamp = document.get("data_efetuacao") as com.google.firebase.Timestamp
+                        val dataEfetuacaoDate = dataEfetuacaoTimestamp.toDate()
+
+                        val calendar = Calendar.getInstance()
+                        calendar.time = dataEfetuacaoDate
+
+                        val mesRegistro = calendar.get(Calendar.MONTH)
+                        val anoRegistro = calendar.get(Calendar.YEAR)
+
+                        mesRegistro == mesSelecionado && anoRegistro == anoSelecionado
+                    }
+
+                    if (registrosParaMesAnoSelecionados.isEmpty()) {
+                        // Não há registros para o mês e ano selecionados
+                        textViewNoRegistros.text = "Você não possui registros para este mês."
+                    } else {
+                        // Há registros, então oculte o texto
+                        textViewNoRegistros.text = ""
+                        // Exiba as despesas, se necessário
+                        exibirDespesas(registrosParaMesAnoSelecionados, mesSelecionado, anoSelecionado)
+                    }
+
                 }
                 .addOnFailureListener { exception ->
                     // Lidar com falha na obtenção das despesas
@@ -408,14 +436,14 @@ class TelaPrincipal : AppCompatActivity() {
 
                         // Verificar se esta é a última parcela e ajustar o mês exibido
                         if (isUltimaParcela) {
-                            proximaParcelaTextView.text = "$mesAbreviado/$dia (Último período)"
+                            proximaParcelaTextView.text = "$dia/$mesAbreviado (Último período)"
                         } else {
-                            proximaParcelaTextView.text = "$mesAbreviado/$dia"
+                            proximaParcelaTextView.text = "$dia/$mesAbreviado"
                         }
                         containerLayout.addView(itemDespesa)
 
                         // Verificar se esta é a próxima parcela a ser paga
-                        if (proximaParcelaTextView.text == "$mesSelecionado/01") {
+                        if (proximaParcelaTextView.text == "01/$mesSelecionado") {
                             proximaParcelaTextView.setTextColor(Color.RED)
                         }
                 }
@@ -450,21 +478,24 @@ class TelaPrincipal : AppCompatActivity() {
 
                     // Verificar se esta é a última parcela e ajustar o mês exibido
                     if (isUltimaParcela) {
-                        proximaParcelaTextView.text = "$mesAbreviado/$dia (Último período)"
+                        proximaParcelaTextView.text = "$dia/$mesAbreviado (Último período)"
                     } else {
-                        proximaParcelaTextView.text = "$mesAbreviado/$dia"
+                        proximaParcelaTextView.text = "$dia/$mesAbreviado"
                     }
                     containerLayout.addView(itemDespesa)
 
                     // Verificar se esta é a próxima parcela a ser paga
-                    if (proximaParcelaTextView.text == "$mesSelecionado/01") {
+                    if (proximaParcelaTextView.text == "01/$mesSelecionado") {
                         proximaParcelaTextView.setTextColor(Color.RED)
                     }
                 }
             }
         }
     }
-    private fun carregarDespesasRecorrentes() {
+    private fun carregarDespesasRecorrentes(
+        mesSelecionado: Int,
+        anoSelecionado: Int
+    ) {
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         userId?.let { uid ->
             val db = FirebaseFirestore.getInstance()
@@ -477,7 +508,31 @@ class TelaPrincipal : AppCompatActivity() {
                 .addOnSuccessListener { documents ->
                     val documentosDespesasRecorrentes = documents.documents // Obter a lista de documentos despesas
 
-                    exibirDespesasRecorrentes(documentosDespesasRecorrentes, mesSelecionado, anoSelecionado)
+                    val textViewNoRegistros = findViewById<TextView>(R.id.textViewPagamentosRecorrentes) // Substitua R.id.textViewNoRegistros pelo ID real do seu TextView
+
+                    // Verifique se há registros para o mês e ano selecionados na lista de documentos
+                    val registrosParaMesAnoSelecionados = documentosDespesasRecorrentes.filter { document ->
+                        val dataEfetuacaoTimestamp = document.get("data_efetuacao") as com.google.firebase.Timestamp
+                        val dataEfetuacaoDate = dataEfetuacaoTimestamp.toDate()
+
+                        val calendar = Calendar.getInstance()
+                        calendar.time = dataEfetuacaoDate
+
+                        val mesRegistro = calendar.get(Calendar.MONTH)
+                        val anoRegistro = calendar.get(Calendar.YEAR)
+
+                        mesRegistro == mesSelecionado && anoRegistro == anoSelecionado
+                    }
+
+                    if (registrosParaMesAnoSelecionados.isEmpty()) {
+                        // Não há registros para o mês e ano selecionados
+                        textViewNoRegistros.text = "Você não possui registros para este mês."
+                    } else {
+                        // Há registros, então oculte o texto
+                        textViewNoRegistros.text = ""
+                        // Exiba as despesas, se necessário
+                        exibirDespesasRecorrentes(registrosParaMesAnoSelecionados, mesSelecionado, anoSelecionado)
+                    }
                 }
                 .addOnFailureListener { exception ->
                     // Lidar com falha na obtenção das despesas
@@ -651,7 +706,7 @@ class TelaPrincipal : AppCompatActivity() {
                             Intent(this, activity_tela_visualizar_despesas::class.java)
                         // Passar os campos da receita como extras
                         intent.putExtra("nome_despesa", despesa.getString("nome_despesa"))
-                        intent.putExtra("nome_despesa", despesa.getString("nome_despesa"))
+                        intent.putExtra("valor_despesa", despesa.getDouble("valor_despesa"))
                         intent.putExtra(
                             "categoria_escolhida_pelo_usuario",
                             despesa.getString("categoria_escolhida_pelo_usuario")
@@ -831,6 +886,7 @@ class TelaPrincipal : AppCompatActivity() {
                             Intent(this, activity_tela_visualizar_despesas::class.java)
                         // Passar os campos da receita como extras
                         intent.putExtra("nome_despesa", despesa.getString("nome_despesa"))
+                        intent.putExtra("valor_despesa", despesa.getDouble("valor_despesa"))
                         intent.putExtra(
                             "categoria_escolhida_pelo_usuario",
                             despesa.getString("categoria_escolhida_pelo_usuario")
@@ -1032,6 +1088,16 @@ class TelaPrincipal : AppCompatActivity() {
                     val documentosUltimosReceitas = documents.documents.take(3)
 
                     exibirUltimosReceitas(documentosUltimosReceitas, mesSelecionado, anoSelecionado)
+
+                    val textViewNoRegistros = findViewById<TextView>(R.id.textViewReceitasUltimas) // Substitua R.id.textViewNoRegistros pelo ID real do seu TextView
+
+                    if (documentosUltimosReceitas.isEmpty()) {
+                        // Não há registros para o mês e ano selecionados
+                        textViewNoRegistros.text = "Você ainda não possui registros."
+                    } else {
+                        // Há registros, então oculte o texto
+                        textViewNoRegistros.text = ""
+                    }
                 }
                 .addOnFailureListener { exception ->
                     Toast.makeText(this, "Falha ao obter as receitas: ${exception.message}", Toast.LENGTH_SHORT).show()
@@ -1042,6 +1108,16 @@ class TelaPrincipal : AppCompatActivity() {
                     val documentosUltimosRegistros = documents.documents.take(3) // Obter a lista de documentos despesas
 
                     exibirUltimosRegistros(documentosUltimosRegistros, mesSelecionado, anoSelecionado)
+
+                    val textViewNoRegistros = findViewById<TextView>(R.id.textViewDespesasUltimas) // Substitua R.id.textViewNoRegistros pelo ID real do seu TextView
+
+                    if (documentosUltimosRegistros.isEmpty()) {
+                        // Não há registros para o mês e ano selecionados
+                        textViewNoRegistros.text = "Você ainda não possui registros."
+                    } else {
+                        // Há registros, então oculte o texto
+                        textViewNoRegistros.text = ""
+                    }
                 }
                 .addOnFailureListener { exception ->
                     // Lidar com falha na obtenção das despesas
@@ -1238,11 +1314,11 @@ class TelaPrincipal : AppCompatActivity() {
 
             atualizarValoresReceitasDespesas()
 
-            carregarDespesas()
+            carregarDespesas(mesSelecionado, anoSelecionado)
 
             exibirDespesasRecorrentes(documentosDespesasRecorrentes, mesSelecionado, anoSelecionado)
 
-            carregarDespesasRecorrentes()
+            carregarDespesasRecorrentes(mesSelecionado, anoSelecionado)
 
             exibirUltimosRegistros(documentosUltimosRegistros, mesSelecionado, anoSelecionado)
             exibirUltimosReceitas(documentosUltimosReceitas, mesSelecionado, anoSelecionado)

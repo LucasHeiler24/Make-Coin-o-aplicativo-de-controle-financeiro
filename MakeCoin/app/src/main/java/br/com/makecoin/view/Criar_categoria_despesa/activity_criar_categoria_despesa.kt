@@ -47,10 +47,11 @@ class activity_criar_categoria_despesa : AppCompatActivity() {
 
             // Verificar se o campo de nome não está vazio e a cor foi selecionada
             if (nomeCategoria.isNotBlank() && selectedColor != Color.BLACK) {
-                salvarCategoriaNoFirestore(nomeCategoria, selectedColor)
+                verificarExistenciaCategoria(nomeCategoria)
+
             } else {
                 // Exibir mensagem de erro se o campo estiver vazio ou a cor não foi selecionada
-                Toast.makeText(this,"Por favor, escreva o nome da categoria e a cor desejada!", Toast.LENGTH_LONG)
+                Toast.makeText(this,"Por favor, escreva o nome da categoria e a cor desejada!", Toast.LENGTH_LONG).show()
             }
         }
 
@@ -143,6 +144,50 @@ class activity_criar_categoria_despesa : AppCompatActivity() {
             .addOnFailureListener { e ->
                 Log.w(TAG, "Erro ao adicionar categoria", e)
                 // Se ocorrer um erro, você pode exibir uma mensagem de erro ou fazer outra ação aqui
+            }
+    }
+    private fun verificarExistenciaCategoria(nomeCategoria: String) {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
+        val db = FirebaseFirestore.getInstance()
+
+        Log.d(TAG, "Verificando existência da categoria: $nomeCategoria")
+
+        val nomeCategoriaSemEspacos = nomeCategoria.trim()
+
+        // Função para verificar a existência da categoria em "categorias_despesas"
+        db.collection("categorias").document("categorias_despesas")
+            .get()
+            .addOnSuccessListener { documentSnapshotDespesas ->
+                if (documentSnapshotDespesas.exists()) {
+                    val categoriasDespesas = documentSnapshotDespesas.data
+
+                    // Verifica se a categoria fornecida está entre as categorias predefinidas
+                    if (categoriasDespesas != null && categoriasDespesas.containsValue(nomeCategoriaSemEspacos)) {
+                        Toast.makeText(this, "Categoria já existe, escolha outro nome.", Toast.LENGTH_LONG).show()
+                    } else {
+                        // Verifica se a categoria já existe para o usuário atual
+                        db.collection("categorias")
+                            .whereEqualTo("categoria_criada_pelo_usuario", nomeCategoriaSemEspacos)
+                            .whereEqualTo("usuario_da_categoria", userId)
+                            .get()
+                            .addOnSuccessListener { documents ->
+                                if (!documents.isEmpty) {
+                                    Toast.makeText(this, "Categoria já existe, escolha outro nome.", Toast.LENGTH_LONG).show()
+                                } else {
+                                    // Categoria não existe, salvar no Firebase
+                                    salvarCategoriaNoFirestore(nomeCategoriaSemEspacos, selectedColor)
+                                }
+                            }
+                            .addOnFailureListener { e ->
+                                Log.w(TAG, "Erro ao verificar categoria de usuário", e)
+                            }
+                    }
+                } else {
+                    Log.d(TAG, "Documento 'categorias_despesas' não existe")
+                }
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Erro ao verificar categoria de despesas", e)
             }
     }
 }

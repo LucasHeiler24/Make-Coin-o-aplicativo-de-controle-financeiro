@@ -15,6 +15,21 @@
         android:theme="@style/Theme.MakeCoin"
         tools:targetApi="31">
         <activity
+            android:name=".view.telaEditarRegistros.activity_tela_editar_criar_categoria"
+            android:exported="false" />
+        <activity
+            android:name=".view.telaEditarRegistros.activity_tela_editar_criar_categoria_despesa"
+            android:exported="false" />
+        <activity
+            android:name=".view.telaEditarRegistros.activity_tela_criar_categoria_receita"
+            android:exported="false" />
+        <activity
+            android:name=".view.telaEditarRegistros.activity_tela_criar_categoria_despesa"
+            android:exported="false" />
+        <activity
+            android:name=".view.Criar_categoria_despesa.activity_criar_categoria_receita"
+            android:exported="false" />
+        <activity
             android:name=".view.Criar_categoria_despesa.activity_criar_categoria_despesa"
             android:exported="false" />
         <activity

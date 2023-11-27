@@ -24,6 +24,8 @@
             android:textSize="20dp"
             android:textStyle="bold"
             android:textAlignment="center"
+            android:maxLines="1"
+            android:ellipsize="end"
             />
 
         <TextView
@@ -33,6 +35,8 @@
             android:textSize="18dp"
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
+            android:maxLines="1"
+            android:ellipsize="end"
             />
         <TextView
             android:id="@+id/itemFavorecido"
@@ -40,7 +44,8 @@
             android:layout_height="wrap_content"
             android:textSize="18dp"
             android:layout_marginStart="20dp"
-
+            android:maxLines="1"
+            android:ellipsize="end"
             />
 
         <LinearLayout

@@ -199,6 +199,7 @@
                 app:tint="@color/white"
                 />
             <TextView
+                android:id="@+id/meusPagamentosMensais"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Seus pagamentos mensais do mês"
@@ -228,6 +229,7 @@
                 </LinearLayout>
             </HorizontalScrollView>
             <TextView
+                android:id="@+id/meusPagamentosRecorrentes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Seus pagamentos recorrentes do mês"
@@ -256,6 +258,7 @@
                 </LinearLayout>
             </HorizontalScrollView>
             <TextView
+                android:id="@+id/textViewDasUltimasDespesas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Últimos registros das despesas"
@@ -282,7 +285,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Últimos registros das receitas"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
                 android:textSize="23dp"
                 android:layout_below="@+id/layoutUltimosRegistros"
                 android:layout_marginStart="20dp"
@@ -302,6 +305,40 @@
                 android:orientation="vertical"
                 android:layout_marginTop="10dp">
             </LinearLayout>
+            <TextView
+                android:id="@+id/textViewReceitasUltimas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/textViewUltimosRegistrosReceitas"
+                android:textSize="16dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="10dp"/>
+            <TextView
+                android:id="@+id/textViewDespesasUltimas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/textViewDasUltimasDespesas"
+                android:textSize="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="25dp"/>
+
+            <TextView
+                android:id="@+id/textViewPagamentosRecorrentes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/meusPagamentosRecorrentes"
+                android:textSize="16dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginStart="25dp"/>
+
+            <TextView
+                android:id="@+id/textViewPagamentosMensais"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/meusPagamentosMensais"
+                android:textSize="16dp"
+                android:layout_marginTop="80dp"
+                android:layout_marginStart="25dp"/>
         </RelativeLayout>
 
     </androidx.core.widget.NestedScrollView>

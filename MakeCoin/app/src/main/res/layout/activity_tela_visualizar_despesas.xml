@@ -72,10 +72,14 @@
                 android:id="@+id/Nome_do_favorecido_registro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
                 android:layout_below="@+id/Nome_do_registro"
                 android:gravity="center"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"/>
             <TextView
                 android:id="@+id/opcao_recorrente"
                 android:layout_width="match_parent"
@@ -101,12 +105,16 @@
                 android:layout_marginTop="190dp"
                 android:gravity="center"
                 android:textSize="30dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 />
             <TextView
                 android:id="@+id/Valor_do_registro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="290dp"
+                android:layout_marginTop="340dp"
                 android:gravity="left"
                 android:textSize="20dp"
                 android:layout_marginStart="20dp"/>
@@ -114,7 +122,7 @@
                 android:id="@+id/Valor_do_registro_mensal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="290dp"
+                android:layout_marginTop="340dp"
                 android:gravity="left"
                 android:textSize="20dp"
                 android:layout_marginStart="20dp"/>
@@ -122,7 +130,7 @@
                 android:id="@+id/data_do_registro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="290dp"
+                android:layout_marginTop="340dp"
                 android:gravity="right"
                 android:textSize="20dp"
                 android:layout_marginEnd="20dp"/>
@@ -130,7 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/black"
-                android:layout_marginTop="330dp"
+                android:layout_marginTop="370dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 />
@@ -138,7 +146,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Já paguei"
-                android:layout_marginTop="370dp"
+                android:layout_marginTop="400dp"
                 android:textSize="35dp"
                 android:textStyle="bold"
                 android:layout_marginStart="20dp"/>
@@ -146,7 +154,7 @@
                 android:id="@+id/toggleSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="380dp"
+                android:layout_marginTop="410dp"
                 android:layout_marginStart="330dp"
                 android:checked="false"
                 android:thumbTint="@color/switch_colors"
@@ -157,7 +165,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/black"
-                android:layout_marginTop="450dp"
+                android:layout_marginTop="480dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginStart="20dp"
                 />
@@ -166,7 +174,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Caso desativar, o valor não será considerado no saldo do mês."
-                android:layout_marginTop="455dp"
+                android:layout_marginTop="485dp"
                 android:textSize="15dp"
                 android:textStyle="bold"
                 android:layout_marginStart="15dp"
@@ -186,9 +194,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textSize="20dp"
+                android:maxLines="3"
+                android:ellipsize="end"
                 android:textStyle="bold"
                 android:layout_below="@+id/textViewDescricao"
                 android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
                 />
             <Button
                 android:id="@+id/ir_para_editar_despesas"

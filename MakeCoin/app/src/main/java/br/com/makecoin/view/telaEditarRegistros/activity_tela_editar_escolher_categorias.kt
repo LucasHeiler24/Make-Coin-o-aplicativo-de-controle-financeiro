@@ -6,11 +6,19 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.View
+import android.widget.Button
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.DrawableCompat
 import br.com.makecoin.R
+import br.com.makecoin.view.Criar_categoria_despesa.activity_criar_categoria_receita
 import br.com.makecoin.view.TelaPrincipalCategorias.activity_tela_principal_categorias_receitas
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -29,6 +37,9 @@ class activity_tela_editar_escolher_categorias : AppCompatActivity() {
         voltarParaTelaCategoriasReceitas.setOnClickListener {
             abrirTelaEditarPrinicpalCategoriasReceitas(receitaId)
         }
+
+        usuarioCriaCategoria()
+
         // Defina a coleção e o documento que você deseja recuperar
         val collectionName = "categorias"
         val documentId = "categoria_receitas"
@@ -131,5 +142,71 @@ class activity_tela_editar_escolher_categorias : AppCompatActivity() {
         setResult(RESULT_OK, intent)
         finish()
     }
+    private fun abrirTelaPrincipalComCategoriaCriadaSelecionada(
+        categoriaSelecionada: String,
+        corCirculoSelecionada: Int,
+        receitaId: String
+    ) {
+        val intent = Intent()
+        intent.putExtra("categoria_selecionada", categoriaSelecionada)
+        intent.putExtra("circulo_cor", corCirculoSelecionada) // Adicione a cor do círculo aqui
+        intent.putExtra("receita_id", receitaId) // Inclua o ID da receita na intenção
+        setResult(RESULT_OK, intent)
+        finish()
+    }
+    private fun usuarioCriaCategoria(){
+        val userId = FirebaseAuth.getInstance().currentUser?.uid
 
+        val despesasRef = FirebaseFirestore.getInstance().collection("categorias")
+            .whereEqualTo("usuario_da_categoria_receita", userId)
+
+        despesasRef.get()
+            .addOnSuccessListener { result ->
+                Log.d(TAG, "Tentativa bem-sucedida de obter categorias.")
+
+                for (document in result) {
+
+                    val containerLayout = findViewById<LinearLayout>(R.id.layoutCategorias)
+                    val inflater = LayoutInflater.from(this)
+
+                    val nomeCategoria = document.getString("categoria_criada_pelo_usuario_receita")
+                    val corCategoria = document.getLong("cor_criada_pelo_usuario_receita")
+
+                    if (nomeCategoria != null && corCategoria != null) {
+
+                        // Inflate the item_categoria layout for each category
+                        val itemCategoria = inflater.inflate(R.layout.item_categoria, containerLayout, false)
+
+                        // Populate the inflated layout with data
+                        val categoriaTextView = itemCategoria.findViewById<TextView>(R.id.nomeCategoria)
+                        val corView = itemCategoria.findViewById<ImageView>(R.id.circuloCor)
+                        val viewCategoria = itemCategoria.findViewById<View>(R.id.viewCategoria)
+
+                        categoriaTextView.text = nomeCategoria
+
+                        // Aplica a cor selecionada como tintura na imagem
+                        val drawable = ContextCompat.getDrawable(this, R.drawable.circle_background)
+
+                        drawable?.let {
+                            it.mutate()  // Necessário para evitar que a tintura afete outras instâncias da mesma imagem
+                            DrawableCompat.setTint(it, corCategoria.toInt())
+                            corView.setImageDrawable(it)
+                        }
+
+                        val setaCategoria = itemCategoria.findViewById<ImageView>(R.id.categoriaCriadaUsuario)
+                        setaCategoria.setOnClickListener {
+                            abrirTelaPrincipalComCategoriaCriadaSelecionada(
+                                nomeCategoria.toString(),
+                                corCategoria.toInt(),
+                                receitaId
+                            )
+                        }
+                        containerLayout.addView(itemCategoria)
+                    }
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents: ", exception)
+            }
+    }
 }

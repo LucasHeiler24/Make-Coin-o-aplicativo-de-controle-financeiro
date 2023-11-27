@@ -24,11 +24,14 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
+import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.PercentFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
+import com.github.mikephil.charting.utils.ViewPortHandler
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -263,20 +266,23 @@ class TelaPrincipalGraficos : AppCompatActivity() {
     }
 
     private fun prepararDadosGrafico(receitas: Double, despesas: Double): BarData {
-        val total = receitas + despesas
-        val receitasPercent = (receitas / total) * 100
-        val despesasPercent = (despesas / total) * 100
-
         val entries = ArrayList<BarEntry>()
-        entries.add(BarEntry(0f, receitasPercent.toFloat()))
-        entries.add(BarEntry(1f, despesasPercent.toFloat()))
+        entries.add(BarEntry(0f, receitas.toFloat()))
+        entries.add(BarEntry(1f, despesas.toFloat()))
 
-        val dataSet = BarDataSet(entries, "Porcentagem")
+        val dataSet = BarDataSet(entries, "Totais")
         dataSet.colors = listOf(Color.GREEN, Color.RED)
 
         val legendas = arrayListOf("Receitas", "Despesas")
         val data = BarData(dataSet)
-        data.barWidth = 0.4f
+        data.barWidth = 0.6f
+
+        // Formatar os valores dos dados
+        dataSet.setValueFormatter(object : ValueFormatter() {
+            override fun getFormattedValue(value: Float, entry: Entry?, dataSetIndex: Int, viewPortHandler: ViewPortHandler?): String {
+                return "R$ ${formatCurrencyValue(value.toDouble())}"
+            }
+        })
 
         return data
     }
@@ -324,7 +330,7 @@ class TelaPrincipalGraficos : AppCompatActivity() {
 
         val yAxisLeft = chart.axisLeft
         yAxisLeft.axisMinimum = 0f
-        yAxisLeft.axisMaximum = 100f
+        yAxisLeft.axisMaximum = (receitas + despesas).toFloat()
         yAxisLeft.setDrawGridLines(false)
         yAxisLeft.textSize = 12f
 
@@ -337,7 +343,7 @@ class TelaPrincipalGraficos : AppCompatActivity() {
 
         val yAxis = chart.axisLeft
         yAxis.axisMinimum = 0f
-        yAxis.axisMaximum = 100f
+        yAxis.axisMaximum = (receitas + despesas).toFloat()
         yAxis.setDrawLabels(false)  // Não mostrar os números no eixo y
         yAxis.setDrawAxisLine(false)  // Não mostrar a linha do eixo y
         yAxis.setDrawGridLines(false)  // Não mostrar as linhas de grade
@@ -358,7 +364,8 @@ class TelaPrincipalGraficos : AppCompatActivity() {
         val textViewSaldo = findViewById<TextView>(R.id.textViewSaldo)
         textViewSaldo.text = "Saldo: ${formatCurrencyValue(saldo)}"
 
-        chart.animateY(800)
+        chart.data = prepararDadosGrafico(receitas, despesas)
+        chart.animateY(1200)
         chart.invalidate()
     }
 
@@ -600,6 +607,7 @@ class TelaPrincipalGraficos : AppCompatActivity() {
         data.setValueTextSize(12f) // Tamanho da fonte (ajuste conforme necessário)
         //pieChart.setDrawHoleEnabled(false)
         pieChart.invalidate()
+        dataSet.sliceSpace = 1f // Ajuste o valor conforme necessário
 
 
         // Dentro do loop para criar as legendas
@@ -766,6 +774,7 @@ class TelaPrincipalGraficos : AppCompatActivity() {
         // Crie o conjunto de dados
         val dataSet = PieDataSet(entries, "")
         dataSet.colors = cores
+        dataSet.sliceSpace = 1f // Ajuste o valor conforme necessário
 
         // Crie o gráfico de pizza
         val pieChart = findViewById<PieChart>(R.id.pieChartReceitas)
